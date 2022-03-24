@@ -13,8 +13,6 @@ function computerPlay() {
     }
 }
 
-// Store the computerPlay return in a computerSelection variable to be used later
-
 // Write a function that plays a single round of Rock Paper Scissors
 function playRound(playerSelection, computerSelection) {
     
@@ -57,7 +55,6 @@ function game() {
     let computerScore = 0;
 
     // Create a loop to play the game 5 times
-    for (let i = 0; i < 5; i ++) {
         // Prompt the user to enter a guess
         let playerSelection = window.prompt("Please enter your selection: ", "Enter here");
         
@@ -76,7 +73,6 @@ function game() {
         } else if (gameResult === 'tie') {
             console.log("You tied this round! No points awarded");
         }
-    }
 
     if (humanScore > computerScore) {
         console.log("You won the game! You had " + humanScore + " point(s). The computer had " + computerScore + " point(s).")
@@ -86,4 +82,86 @@ function game() {
         console.log("You tied the game! You had " + humanScore + " point(s). The computer had " + computerScore + " point(s).")
     }
 }
+
+// Select the proper buttons by ID using getElementById
+let rockBtn = document.getElementById('rockBtn');
+let paperBtn = document.getElementById('paperBtn');
+let scissorsBtn = document.getElementById('scissorsBtn');
+let resultContainer = document.getElementById('resultContainer');
+let runningScore = document.getElementById('runningScore');
+
+// Initalize the Score Variables
+let humanScore = 0;
+let computerScore = 0;
+
+// Define function that takes human and computer scores to display alerts
+// and rest the page when it is reached
+
+function declareWinner(hScore, cScore) {
+    if (hScore == 5) {
+        alert("Congratulations! You won!\nHuman: " + hScore + " Computer: " + cScore);
+        location.reload();
+    } else if (cScore == 5) {
+        alert("Better luck next time...\nHuman: " + hScore + " Computer: " + cScore);
+        location.reload();
+    } else {
+        return;
+    }
+}
+
+// Allow the user to play with Rock
+rockBtn.addEventListener('click', function() {
+    let playerSelection = 'rock';
+    let computerSelection = computerPlay();
+    let gameResult = playRound(playerSelection, computerSelection);  
+    resultContainer.textContent = "The computer played " + computerSelection + ". You " + gameResult + ".";
+
+    // Alter the score variables based on the result
+    if (gameResult === 'win') {
+        humanScore += 1;
+    } else if (gameResult === 'lose') {
+        computerScore += 1;
+    }
+
+    runningScore.textContent = "Human: " + humanScore + " Computer: " + computerScore;
+    declareWinner(humanScore, computerScore);
+});
+
+// Allow the user to play with Paper
+paperBtn.addEventListener('click', function() {
+    let playerSelection = 'paper';
+    let computerSelection = computerPlay();
+    let gameResult = playRound(playerSelection, computerSelection);
+    resultContainer.textContent = "The computer played " + computerSelection + ". You " + gameResult + ".";
+
+    // Alter the score variables based on the result
+    if (gameResult === 'win') {
+        humanScore += 1;
+    } else if (gameResult === 'lose') {
+        computerScore += 1;
+    }
+
+    runningScore.textContent = "Human: " + humanScore + " Computer: " + computerScore;
+    declareWinner(humanScore, computerScore);
+    
+});
+
+// Allow the user to play with Scissors
+scissorsBtn.addEventListener('click', function() {
+    let playerSelection = 'scissors';
+    let computerSelection = computerPlay();
+    let gameResult = playRound(playerSelection, computerSelection);
+    resultContainer.textContent = "The computer played " + computerSelection + ". You " + gameResult + ".";
+
+    // Alter the score variables based on the result
+    if (gameResult === 'win') {
+        humanScore += 1;
+    } else if (gameResult === 'lose') {
+        computerScore += 1;
+    }
+
+    runningScore.textContent = "Human: " + humanScore + " Computer: " + computerScore;
+    declareWinner(humanScore, computerScore);
+});
+
 
